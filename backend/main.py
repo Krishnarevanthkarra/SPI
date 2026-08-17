@@ -1,6 +1,16 @@
 from fastapi import FastAPI
-
-app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+from .routes import auth
+from .database import db_connection
+app = FastAPI(lifespan=db_connection)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.include_router(auth.router)
 
 
 @app.get("/")

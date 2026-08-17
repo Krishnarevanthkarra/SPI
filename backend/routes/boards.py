@@ -1,0 +1,5 @@
+from fastapi import APIRouter
+
+router = APIRouter(prefix='/boards', tags=['boards'])
+
+# @router.get()
